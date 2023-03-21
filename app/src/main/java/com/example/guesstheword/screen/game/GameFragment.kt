@@ -36,6 +36,7 @@ class GameFragment : Fragment() {
         // Assigning Owner to The ViewModel
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
+        // Setting setOnClickListener for both buttons
         binding.correctButton.setOnClickListener {
             viewModel.onCorrect()
         }
@@ -45,21 +46,26 @@ class GameFragment : Fragment() {
         }
 
         // Updating Score using livedata from ViewModel
-        viewModel.score.observe(
-            viewLifecycleOwner
-        ) { newScore ->
+        viewModel.score.observe(viewLifecycleOwner)
+        { newScore ->
             binding.scoreText.text = newScore.toString()
         }
 
         // Updating Word using livedata from ViewModel
-        viewModel.word.observe(
-            viewLifecycleOwner
-        ) { newWord ->
+        viewModel.word.observe(viewLifecycleOwner)
+        { newWord ->
             binding.wordText.text = newWord.toString()
         }
 
-        // if player plays all 21 words then we will Navigate to ScoreFragment
-        viewModel.isGameFinished.observe(viewLifecycleOwner) { isGameFinished ->
+        // Displaying currentTime to Layout
+        viewModel.currentTime.observe(viewLifecycleOwner)
+        { currentTime ->
+            binding.timerText.text = currentTime.toString()
+        }
+
+        // When time is over then it will navigate to ScoreFragment
+        viewModel.isGameFinished.observe(viewLifecycleOwner)
+        { isGameFinished ->
             if (isGameFinished) {
                 val tempScore = viewModel.score.value ?: 0
                 val action = GameFragmentDirections.actionGameToScore(tempScore)
@@ -69,7 +75,6 @@ class GameFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }
