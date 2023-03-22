@@ -1,9 +1,11 @@
 package com.example.guesstheword.screen.score
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +19,7 @@ class ScoreFragment : Fragment() {
 
     // Variables for viewModel and viewModelFactory
     private lateinit var viewModel: ScoreViewModel
+
     private lateinit var viewModelFactory: ScoreViewModelFactory
 
     override fun onCreateView(
@@ -31,6 +34,8 @@ class ScoreFragment : Fragment() {
             container,
             false
         )
+
+        setHasOptionsMenu(true)
 
         // Get args using by navArgs property delegate
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
@@ -62,5 +67,35 @@ class ScoreFragment : Fragment() {
         return binding.root
     }
 
+    // Creating Function for Sharing the Intent and Staring activity
+    private fun shareIntent(){
+        val args by navArgs<ScoreFragmentArgs>()
+        val shareIntent = ShareCompat.IntentBuilder.from(requireActivity())
+            .setText(getString(R.string.intent, args.score))
+            .setType("text/plain")
+            .intent
+        try {
+//            Starting Activity to shareIntent
+            startActivity(shareIntent)
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), R.string.can_not_share, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    // Creating option menu for share_menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.share_menu,menu)
+    }
+
+    // Selecting option menu options
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.share -> shareIntent()
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
 
 }

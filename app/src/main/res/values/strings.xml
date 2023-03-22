@@ -10,4 +10,11 @@
     <string name="word_is">The word is…</string>
     <string name="quote_format">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
+    <string name="enter_choice">Select The Word Package</string>
+    <string name="words_choice">Words</string>
+    <string name="movie_word_choice">Movies</string>
+    <string name="place_word_choice">Cities</string>
+    <string name="share">share</string>
+    <string name="intent">I Scored %d point in #GuessTheWord</string>
+    <string name="can_not_share">We can not share the data</string>
 </resources>

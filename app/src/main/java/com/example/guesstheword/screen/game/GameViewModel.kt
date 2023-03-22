@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-class GameViewModel : ViewModel() {
+class GameViewModel(choice : String) : ViewModel() {
 
     // Static Variable for total time , one second
     companion object {
@@ -17,6 +17,12 @@ class GameViewModel : ViewModel() {
 
         private val finshTime = 0L
     }
+
+    // Setting choice entered by user
+    private val _userChoice = MutableLiveData<String>()
+    val userChoice : LiveData<String>
+    get() = _userChoice
+
 
     // CountDownTimer for counting time
     private val timer: CountDownTimer
@@ -37,8 +43,9 @@ class GameViewModel : ViewModel() {
     val score: LiveData<Int>
         get() = _score
 
-    // The list of words - the front of the list is the next word to guess
+    // The list of places,movies,words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
+
 
 
     // This varible will be true if user give answer to all 21 words else is will be false
@@ -47,8 +54,10 @@ class GameViewModel : ViewModel() {
         get() = _isGameFinished
 
 
+
     // Assigning Value and running functions
     init {
+        _userChoice.value=choice
         _isGameFinished.value = false
         _score.value = 0
         resetList()
@@ -74,30 +83,77 @@ class GameViewModel : ViewModel() {
      * Resets the list of words and randomizes the order
      */
     private fun resetList() {
-        wordList = mutableListOf(
-            "queen",
-            "hospital",
-            "basketball",
-            "cat",
-            "change",
-            "snail",
-            "soup",
-            "calendar",
-            "sad",
-            "desk",
-            "guitar",
-            "home",
-            "railway",
-            "zebra",
-            "jelly",
-            "car",
-            "crow",
-            "trade",
-            "bag",
-            "roll",
-            "bubble"
-        )
+        // Assigning wordList as user give input about the list
+        when(_userChoice.value){
+            "Movies" -> {
+                wordList = mutableListOf(
+                    "John Wick : Chapter 1",
+                    "Terminator",
+                    "Iron man I",
+                    "Captain America : Winter Soldier",
+                    "Catch Me If You Can",
+                    "Inception",
+                    "Tenet",
+                    "Openhimer",
+                    "Intersteller",
+                    "Harry Potter",
+                    "Mission Impossible",
+                    "Pirates of Caribbean",
+                    "Jack Reacher",
+                    "The Batman",
+                    "Avengers : Endgame",
+                    "Avengers : Infinity War"
+                )
+            }
+            "Places" -> {
+                wordList = mutableListOf(
+                    "Mumbai",
+                    "Chennai",
+                    "Surat",
+                    "Kolkata",
+                    "Bengaluru",
+                    "Paris",
+                    "Moscow",
+                    "New York",
+                    "London",
+                    "New Delhi",
+                    "Munich",
+                    "Berlin",
+                    "Sydney",
+                    "Perth",
+                    "Hong Kong",
+                    "Tokyo"
+                )
+            }
+            "Words" -> {
+                wordList = mutableListOf(
+                    "queen",
+                    "hospital",
+                    "basketball",
+                    "cat",
+                    "change",
+                    "snail",
+                    "soup",
+                    "calendar",
+                    "sad",
+                    "desk",
+                    "guitar",
+                    "home",
+                    "railway",
+                    "zebra",
+                    "jelly",
+                    "car",
+                    "crow",
+                    "trade",
+                    "bag",
+                    "roll",
+                    "bubble"
+                )
+
+            }
+        }
         wordList.shuffle()
+
     }
 
 

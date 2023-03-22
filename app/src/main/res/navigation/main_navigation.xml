@@ -11,13 +11,8 @@
         android:label="title_fragment"
         tools:layout="@layout/fragment_title">
         <action
-            android:id="@+id/action_title_to_game"
-            app:destination="@id/game_destination"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
+            android:id="@+id/action_title_destination_to_choiceFragment"
+            app:destination="@id/choiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/game_destination"
@@ -33,23 +28,39 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@+id/title_destination" />
+        <argument
+            android:name="choice"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/score_destination"
         android:name="com.example.guesstheword.screen.score.ScoreFragment"
         android:label="score_fragment"
         tools:layout="@layout/fragment_score">
-        <action
-            android:id="@+id/action_restart"
-            app:destination="@+id/game_destination"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@+id/title_destination" />
         <argument
             android:name="score"
             android:defaultValue="0"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_restart"
+            app:destination="@id/choiceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/choiceFragment"
+        android:name="com.example.guesstheword.screen.choice.ChoiceFragment"
+        android:label="ChoiceFragment" >
+        <action
+            android:id="@+id/action_choiceFragment_to_game_destination"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:destination="@id/game_destination"
+            app:popUpTo="@id/choiceFragment" />
+
     </fragment>
 </navigation>

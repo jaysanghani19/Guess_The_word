@@ -8,11 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.guesstheword.R
 import com.example.guesstheword.databinding.FragmentGameBinding
 
 
 class GameFragment : Fragment() {
+
+    // ViewModelFactory for GameFragment
+    private lateinit var viewModelFactory: GameViewModelFactory
 
     // ViewModel for GameFragment
     private lateinit var viewModel: GameViewModel
@@ -33,10 +37,16 @@ class GameFragment : Fragment() {
             false
         )
 
-        // Assigning Owner to The ViewModel
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        val gameArguments by navArgs<GameFragmentArgs>()
+
+        // Initializing viewModel and viewModelFactory
+
+        viewModelFactory = GameViewModelFactory(gameArguments.choice)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
         // Setting setOnClickListener for both buttons
+
         binding.correctButton.setOnClickListener {
             viewModel.onCorrect()
         }
@@ -46,24 +56,28 @@ class GameFragment : Fragment() {
         }
 
         // Updating Score using livedata from ViewModel
+
         viewModel.score.observe(viewLifecycleOwner)
         { newScore ->
             binding.scoreText.text = newScore.toString()
         }
 
         // Updating Word using livedata from ViewModel
+
         viewModel.word.observe(viewLifecycleOwner)
         { newWord ->
             binding.wordText.text = newWord.toString()
         }
 
         // Displaying currentTime to Layout
+
         viewModel.currentTime.observe(viewLifecycleOwner)
         { currentTime ->
             binding.timerText.text = currentTime.toString()
         }
 
         // When time is over then it will navigate to ScoreFragment
+
         viewModel.isGameFinished.observe(viewLifecycleOwner)
         { isGameFinished ->
             if (isGameFinished) {
