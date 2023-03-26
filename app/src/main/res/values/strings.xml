@@ -17,4 +17,7 @@
     <string name="share">share</string>
     <string name="intent">I Scored %d point in #GuessTheWord</string>
     <string name="can_not_share">We can not share the data</string>
+    <string name="one_minute">1 Minute</string>
+    <string name="two_minute">2 Minute</string>
+    <string name="five_minute">5 Minute</string>
 </resources>
