@@ -1,7 +1,6 @@
 package com.example.guesstheword.screen.score
 
 import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -68,7 +67,7 @@ class ScoreFragment : Fragment() {
     }
 
     // Creating Function for Sharing the Intent and Staring activity
-    private fun shareIntent(){
+    private fun shareIntent() {
         val args by navArgs<ScoreFragmentArgs>()
         val shareIntent = ShareCompat.IntentBuilder.from(requireActivity())
             .setText(getString(R.string.intent, args.score))
@@ -86,12 +85,12 @@ class ScoreFragment : Fragment() {
     // Creating option menu for share_menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.share_menu,menu)
+        inflater.inflate(R.menu.share_menu, menu)
     }
 
     // Selecting option menu options
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.share -> shareIntent()
         }
         return super.onOptionsItemSelected(item)

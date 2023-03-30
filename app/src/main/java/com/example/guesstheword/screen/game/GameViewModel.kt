@@ -6,22 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-class GameViewModel(choice : String) : ViewModel() {
+class GameViewModel(choice: String, timeChoice: Int) : ViewModel() {
 
-    // Static Variable for total time , one second
-    companion object {
-        // 60 second of time for one game
-        private val totalTime = 60000L
 
-        private val oneSecond = 1000L
+    private var totalTime = 60000L
 
-        private val finshTime = 0L
-    }
+    private var oneSecond = 1000L
+
+    private var finshTime = 0L
+
 
     // Setting choice entered by user
     private val _userChoice = MutableLiveData<String>()
-    val userChoice : LiveData<String>
-    get() = _userChoice
+    val userChoice: LiveData<String>
+        get() = _userChoice
 
 
     // CountDownTimer for counting time
@@ -47,21 +45,26 @@ class GameViewModel(choice : String) : ViewModel() {
     private lateinit var wordList: MutableList<String>
 
 
-
     // This varible will be true if user give answer to all 21 words else is will be false
     private val _isGameFinished = MutableLiveData<Boolean>()
     val isGameFinished: LiveData<Boolean>
         get() = _isGameFinished
 
+    private val _userTime = MutableLiveData<Int>()
+    val usertime: LiveData<Int>
+        get() = _userTime
 
 
     // Assigning Value and running functions
     init {
-        _userChoice.value=choice
+        _userTime.value = timeChoice
+        _userChoice.value = choice
         _isGameFinished.value = false
         _score.value = 0
         resetList()
         nextWord()
+        setTime()
+
 
         // Initializing The Timer from 60 second
         timer = object : CountDownTimer(totalTime, oneSecond) {
@@ -78,13 +81,21 @@ class GameViewModel(choice : String) : ViewModel() {
         timer.start()
     }
 
+    private fun setTime() {
+        when (_userTime.value) {
+            1 -> totalTime = totalTime * 1
+            2 -> totalTime = totalTime * 2
+            5 -> totalTime = totalTime * 5
+        }
+    }
+
 
     /**
      * Resets the list of words and randomizes the order
      */
     private fun resetList() {
         // Assigning wordList as user give input about the list
-        when(_userChoice.value){
+        when (_userChoice.value) {
             "Movies" -> {
                 wordList = mutableListOf(
                     "John Wick : Chapter 1",

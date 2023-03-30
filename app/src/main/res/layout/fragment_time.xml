@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/time_fragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/time_text_view"
@@ -21,16 +19,17 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.328" />
+            app:layout_constraintVertical_bias="0.264" />
 
         <RadioGroup
             android:id="@+id/time_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/time_text_view"
-            app:layout_constraintVertical_bias="0.134">
+            app:layout_constraintVertical_bias="0.227">
 
 
             <RadioButton
@@ -39,9 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/one_minute"
-                android:textSize="25sp"
-                app:layout_constraintTop_toBottomOf="@+id/time_text_view"
-              />
+                android:textSize="25sp" />
 
             <RadioButton
                 android:id="@+id/two_minute_option"
@@ -49,22 +46,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/two_minute"
                 android:textSize="25sp"
-                app:layout_constraintBottom_toTopOf="@+id/time_option"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/one_minute_option"
-              />
+
+                />
 
             <RadioButton
                 android:id="@+id/five_minute_option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="@string/five_minute"
-                android:textSize="25sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/two_minute_option"
-               />
+                android:textSize="25sp" />
         </RadioGroup>
 
         <Button

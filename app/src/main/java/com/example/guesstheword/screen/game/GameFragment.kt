@@ -41,7 +41,7 @@ class GameFragment : Fragment() {
 
         // Initializing viewModel and viewModelFactory
 
-        viewModelFactory = GameViewModelFactory(gameArguments.choice)
+        viewModelFactory = GameViewModelFactory(gameArguments.choice, gameArguments.timeChoice)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 

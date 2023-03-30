@@ -6,10 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 // By using ViewModelFactory we will give Argument to ViewModel
 
 @Suppress("UNCHECKED_CAST")
-class GameViewModelFactory(private val choice : String) : ViewModelProvider.Factory {
+class GameViewModelFactory(private val choice: String, private val timeChoice: Int) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(GameViewModel::class.java)){
-            return GameViewModel(choice) as T
+        if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
+            return GameViewModel(choice, timeChoice) as T
         }
         throw IllegalArgumentException("Unknown Argument Type")
     }

@@ -27,17 +27,17 @@ class ChoiceFragment : Fragment() {
 
         // Setting ClickListener
         binding.nextButton.setOnClickListener {
-                clickListener()
+            clickListener()
         }
 
         return binding.root
     }
 
     // Creating function for setOnClickOnListener
-    private fun clickListener(){
+    private fun clickListener() {
 
         // Passing argument according the RadioButton chosen by user
-        val choice: String = when(binding.choices.checkedRadioButtonId) {
+        val choice: String = when (binding.choices.checkedRadioButtonId) {
             R.id.normal_words -> "Words"
             R.id.movie_word -> "Movies"
             R.id.place_word -> "Places"
@@ -46,8 +46,8 @@ class ChoiceFragment : Fragment() {
 
 
         findNavController().navigate(
-                ChoiceFragmentDirections.actionChoiceFragmentToGameDestination(choice)
-            )
+            ChoiceFragmentDirections.actionChoiceFragmentToTimeFragment(choice)
+        )
 
         Toast.makeText(requireContext(), " You chose $choice", Toast.LENGTH_SHORT).show()
     }
